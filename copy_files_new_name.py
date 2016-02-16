@@ -7,14 +7,16 @@ import platform
 def read_files_in_folder(source_folder, destination_folder, file_extension, character_to_split):
     destination_folder = process_destination_folder(destination_folder)
     for f in listdir(source_folder):
-        if isfile(join(source_folder, f)) and f.endswith("." + file_extension):
+        prev_full_name = join(source_folder, f)
+        if isfile(prev_full_name) and f.endswith("." + file_extension):
             new_name = create_file_name(f, character_to_split)
             if new_name is False:
-                print "File " + f + " could not be copied. Character " + character_to_split + " not found in name."
+                print "File " + prev_full_name + " could not be copied. Character " + character_to_split + " not found in name."
             else:
                 full_new_name = destination_folder + new_name
-                shutil.copyfile(f, full_new_name)
-                print "File " + f + " succesfully copied as " + full_new_name
+                #print full_new_name
+                shutil.copyfile(prev_full_name, full_new_name)
+                print "File " + prev_full_name + " succesfully copied as " + full_new_name
 
 
 def create_file_name(name, split_character):
@@ -38,4 +40,3 @@ def process_destination_folder(name):
             return name + '\\'
 
 read_files_in_folder(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-
