@@ -1,3 +1,36 @@
+'''
+    File name: copy_files_new-name.py
+
+    Author: Sebastian Velasquez
+
+    Date created: 2016/02/16
+
+    Date last modified: 2016/02/16
+
+    Python Version: 2.7
+
+    License. The MIT License | https://opensource.org/licenses/MIT
+
+    Description: The purpose of this script is to copy the files from
+    one location to another with the option to reduce the name of the 
+    files given a character.
+
+    Usage: In a linux terminal, go to the location of the script
+    and type the following: 
+
+    python copy_files_new_name.py /home/user_name/Pictures /home/user_name/Documents jpg _
+
+    In the command line of windows, type like the following:
+
+    python copy_files_new_name.py "C:\Users\user_name\My Images" "C:\Users\user_name" jpg _
+    
+    The first argument is the source folder that contains the original files.
+    The second argument is the destination forlder where the new files will be located.
+    The third argument is the file extension. All the files of that type will be copied.
+    The last argument is the character to generate the name of the new files. For example,
+    a file named /home/user_name/Pictures/my_image.jgp will generate 
+    a file called /home/user_name/Documents/image.jpg
+'''
 from os import listdir
 from os.path import isfile, join
 import shutil
