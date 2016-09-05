@@ -16,11 +16,11 @@
     Usage: In a linux terminal, go to the location of the script
     and type the following: 
 
-    python copy_files_new_name.py /home/user_name/errors.txt /home/user_name/model.osm
+    python fix_osm_errors.py /home/user_name/errors.txt /home/user_name/model.osm
 
     In the command line of windows, type like the following:
 
-    python copy_files_new_name.py "C:\Users\user_name\errors.txt" "C:\Users\user_name\model.osm"
+    python fix_osm_errors.py "C:\Users\user_name\errors.txt" "C:\Users\user_name\model.osm"
     
     The first argument is the file with the errors and warnings in the model.
     The second argument is the osm file 
