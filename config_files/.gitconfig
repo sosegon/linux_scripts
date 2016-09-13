@@ -1,0 +1,15 @@
+[alias]
+  br = branch
+  ch = checkout
+  cm = commit -m
+  pl = pull
+  lg = log
+  st = status
+  ps = push -u origin
+  lgo = log --pretty=oneline
+  df = diff
+  rs = reset
+  ad = add
+[user]
+  email = anse23@hotmail.com
+  name = Sebastian
