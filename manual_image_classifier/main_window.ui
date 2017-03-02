@@ -1,143 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>683</width>
-    <height>484</height>
+    <width>676</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>MainWindow</string>
   </property>
-  <widget class="QGraphicsView" name="gv_image">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>661</width>
-     <height>361</height>
-    </rect>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGraphicsView" name="gv_image">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>79</y>
+      <width>661</width>
+      <height>361</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_dst">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>46</y>
+      <width>571</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_src">
+    <property name="geometry">
+     <rect>
+      <x>98</x>
+      <y>15</y>
+      <width>481</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_start">
+    <property name="geometry">
+     <rect>
+      <x>399</x>
+      <y>450</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_pause">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>450</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pause</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_stop">
+    <property name="geometry">
+     <rect>
+      <x>581</x>
+      <y>450</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stop</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_src">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>10</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Source</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="chk_recursive">
+    <property name="geometry">
+     <rect>
+      <x>588</x>
+      <y>13</y>
+      <width>88</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recursive</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_dst">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>41</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Destination</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txt_class_name">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>88</x>
+      <y>451</y>
+      <width>201</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbl_class_name">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>456</y>
+      <width>69</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Class name:</string>
+    </property>
+   </widget>
   </widget>
-  <widget class="QCheckBox" name="chk_recursive">
+  <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>20</y>
-     <width>88</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Recursive</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_src">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>11</y>
-     <width>85</width>
+     <x>0</x>
+     <y>0</y>
+     <width>676</width>
      <height>27</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Source</string>
-   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
-  <widget class="QLabel" name="lbl_src">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>16</y>
-     <width>481</width>
-     <height>17</height>
-    </rect>
-   </property>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
    <property name="text">
-    <string/>
+    <string>Open</string>
    </property>
-  </widget>
-  <widget class="QLabel" name="lbl_dst">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>47</y>
-     <width>571</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_dst">
-   <property name="geometry">
-    <rect>
-     <x>12</x>
-     <y>42</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Destination</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_start">
-   <property name="geometry">
-    <rect>
-     <x>401</x>
-     <y>451</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Start</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_pause">
-   <property name="geometry">
-    <rect>
-     <x>492</x>
-     <y>451</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Pause</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="btn_stop">
-   <property name="geometry">
-    <rect>
-     <x>583</x>
-     <y>451</y>
-     <width>85</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Stop</string>
-   </property>
-  </widget>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>gv_image</zorder>
-  <zorder>chk_recursive</zorder>
+  </action>
  </widget>
  <resources/>
  <connections/>
