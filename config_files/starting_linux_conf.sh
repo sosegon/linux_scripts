@@ -6,8 +6,6 @@
 
 setxkbmap -layout 'es,es'
 echo "set spanish keyboard"
-xmodmap ~/.Xmodmap.try
-echo "keys set"
 alias gt="git"
 echo "aliased git"
 
