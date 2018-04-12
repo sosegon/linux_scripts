@@ -5,6 +5,7 @@
 	df = diff
 	ch = checkout
 	lgo = log --pretty=format:%Cred%an%n%Cgreen%h%n%s
+	lgf = log --pretty=format:%Cred%h%n%Cgreen%an%n---%s%n%n%b
 	ad = add
 	br = branch
 	sh = stash
