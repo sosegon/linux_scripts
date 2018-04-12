@@ -4,14 +4,14 @@
 
 export HOME=/home/sebastian
 export SHARED=/mnt/linux_shared/shared
-export JAVA_HOME=$SHARED/jdk1.8.0_05
+export JAVA_HOME=$SHARED/jdk1.8.0_131
 export ANDROID_SDK=$SHARED/AndroidSdk/android-sdk-linux
 export ANDROID_NDK=$SHARED/AndroidNdk/android-ndk-r12b
 export ANDROID_STUDIO=$SHARED/android-studio
 export NACL_SDK_ROOT=$SHARED/nacl_sdk/pepper_49
 export REPO=$SHARED/lwork
 
-export PATH=$HOME/bin
+export PATH=$SHARED/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:/usr/local/games
 export PATH=$PATH:/usr/local/sbin
@@ -22,14 +22,16 @@ export PATH=$PATH:/usr/bin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/bin
 export PATH=$PATH:$SHARED/anaconda3/bin
+#export PATH=$PATH:$SHARED/anaconda2/bin
 export PATH=$PATH:$ANDROID_STUDIO/bin
 export PATH=$PATH:$ANDROID_SDK/platform-tools
 export PATH=$PATH:$JAVA_HOME/bin
-export PATH=$PATH:$SHARED/firefox
-export PATH=$PATH:$SHARED/eclipse
 export PATH=$PATH:$NACL_SDK_ROOT/toolchain/linux_x86_glibc/bin
+export PATH=$PATH:$SHARED/matlab2/r2017b/bin/
 
 export PATH=$SHARED/depot_tools:$PATH
+
+export MLP_DATA_DIR=/mnt/linux_shared/shared/Documents/Universidad/MLP/mlpsosegon/data
 
 # If not running interactively, don't do anything
 case $- in
