@@ -8,6 +8,10 @@
 	ad = add
 	br = branch
 	sh = stash
+	pl = pull
+	rshs = reset --soft HEAD^
+	rshs = reset --hard HEAD^
+	chf = checkout -- file
 [user]
 	email = anse23@hotmail.com
 	name = Sebastian
