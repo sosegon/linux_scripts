@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+##############################################################################
+##
+## script to debug android apps via wifi
+## 1. Connect the device to usb  
+## 2. Run ./wifi 
+## 3. Disconnect the device.
+## 4. Find the ip address of the device
+## 5. Run ./wifi ip_address:5555
+##
+##############################################################################
+
+adb devices
+adb tcpip 5555
+adb connect $1
