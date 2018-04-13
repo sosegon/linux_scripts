@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Exec=/mnt/linux_shared/shared/bin/subl
+Name[en_GB]=Sublime

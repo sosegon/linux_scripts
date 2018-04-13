@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Exec=sh /usr/local/bin/sc
+Name[en_GB]=SC
