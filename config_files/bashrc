@@ -8,6 +8,7 @@ export JAVA_HOME=$SHARED/jdk1.8.0_131
 export ANDROID_SDK=$SHARED/AndroidSdk/android-sdk-linux
 export ANDROID_NDK=$SHARED/AndroidNdk/android-ndk-r12b
 export ANDROID_STUDIO=$SHARED/android-studio
+export ANDROID_HOME=ANDROID_SDK
 export NACL_SDK_ROOT=$SHARED/nacl_sdk/pepper_49
 export REPO=$SHARED/lwork
 
@@ -24,6 +25,7 @@ export PATH=$PATH:/bin
 export PATH=$PATH:$SHARED/anaconda3/bin
 #export PATH=$PATH:$SHARED/anaconda2/bin
 export PATH=$PATH:$ANDROID_STUDIO/bin
+export PATH=$PATH:$ANDROID_SDK/tools
 export PATH=$PATH:$ANDROID_SDK/platform-tools
 export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:$NACL_SDK_ROOT/toolchain/linux_x86_glibc/bin
