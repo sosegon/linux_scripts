@@ -8,7 +8,7 @@ export JAVA_HOME=$SHARED/jdk1.8.0_131
 export ANDROID_SDK=$SHARED/AndroidSdk/android-sdk-linux
 export ANDROID_NDK=$SHARED/AndroidNdk/android-ndk-r12b
 export ANDROID_STUDIO=$SHARED/android-studio
-export ANDROID_HOME=ANDROID_SDK
+export ANDROID_HOME=$ANDROID_SDK
 export NACL_SDK_ROOT=$SHARED/nacl_sdk/pepper_49
 export REPO=$SHARED/lwork
 
