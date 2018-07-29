@@ -1,3 +1,34 @@
+def down11(a):
+    assert a >= 100 and a <= 10000
+
+    n = 0
+    next_I = 10
+
+    while next_I <= a:
+        s = str(next_I)
+        index = 0
+        l = len(s)
+
+        while index < l:
+            ss = s[:index] + s[index+1:]
+            si = int(ss)
+
+            # is it square?
+            sq = int(str(si**.5).split('.')[1])
+            if sq == 0:
+                n = n + 1
+            #     print(s + "---" + ss + " YES")
+            # else:
+            #     print(s + "---" + ss + " NO")
+
+            index = index + 1
+
+        next_I = next_I + 1
+
+    return n
+
+#print(down11(100))
+
 def across5(a, b):
     assert len(a) > 0 and len(b) > 0
     n = 0
