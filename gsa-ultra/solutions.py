@@ -1,3 +1,73 @@
+def across12(n, x, r):
+    assert n == len(x) and n == len(r)
+
+    X = list(x)
+    R = list(r)
+
+    XR = []
+    for xx, rr in zip(X, R):
+        XR.append([xx, rr])
+
+    XR = sorted(XR, key=lambda x:x[1], reverse=True) # sort by power
+    ex = [0] * n
+    order = [0] * n
+    own = [0] * n
+    n = 0
+
+    index1 = 0
+    while index1 < len(XR):
+        if ex[index1] == 1:
+            index1 = index1 + 1
+            continue
+
+        p1 = XR[index1][0]
+        r1 = XR[index1][1]
+        min1 = p1 - r1 # min limit to influence others
+        max1 = p1 + r1 # max limit to influence others
+        ex[index1] = 1
+        order[index1] = ex.count(1)
+        own[index1] =  1
+        n = n + 1
+
+        if ex.count(0) == 0:
+            break
+
+        QP = XR[index1 + 1:]
+        index2 = 0
+
+        while index2 < len(QP):
+            if ex[index1 + 1 + index2] == 1:
+                index2 = index2 + 2
+                continue
+
+            p2 = QP[index2][0]
+            r2 = QP[index2][1]
+            min2 = p2 - r2 # min limit to influence others
+            max2 = p2 + r2 # max limit to influence others
+            #print("min: " + str(min1) + " max: " + str(max1) + " p2: " + str(p2))
+
+            ####################
+            # Verify if element is affected by influence
+            if p2 >= min1 and p2 <= max1:
+                ex[index1 + 1 + index2] = 1
+                order[index1 + 1 + index2] = ex.count(1)
+
+                max1 = max2 if max2 > max1 else max1
+                min1 = min2 if min2 < min1 else min1
+            ####################
+
+            index2 = index2 + 1
+
+        index1 = index1 + 1
+
+
+    #print(n)
+    #print(XR)
+    #print(own)
+    return n * 10000
+
+# print(across12(10, (9,2,21,4,11,50,29,3,5,20), (1,1,9,2,1,10,3,3,2,5)))
+
 def down11(a):
     assert a >= 100 and a <= 10000
 
