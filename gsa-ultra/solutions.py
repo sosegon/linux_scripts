@@ -17,7 +17,8 @@ def down11(a):
             sq = int(str(si**.5).split('.')[1])
             if sq == 0:
                 n = n + 1
-            #     print(s + "---" + ss + " YES")
+                # print(s + "---" + ss + " YES")
+                break
             # else:
             #     print(s + "---" + ss + " NO")
 
@@ -27,7 +28,7 @@ def down11(a):
 
     return n
 
-#print(down11(100))
+# print(down11(1234))
 
 def across5(a, b):
     assert len(a) > 0 and len(b) > 0
