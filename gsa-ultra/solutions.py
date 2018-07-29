@@ -1,21 +1,26 @@
 def across5(a, b):
     assert len(a) > 0 and len(b) > 0
     n = 0
-    while len(a) > 0:
-        r = True
-        i = 1
-        while r and i < len(a):
-            r = a[:i] in b
-            if r:
-                i = i + 1
+    index = 0
+    bb = b
+    while index < len(a):
+        char = a[index]
+        index_in_b = bb.find(char)
 
-        if i < len(a):
-            a = a[i-1:]
+        if index_in_b >= 0:
+            bb = bb[index_in_b + 1:]
+            index = index + 1
         else:
-            a = a[1:]
-        n = n + 1
+            n = n + 1
+            bb = b
 
-    return n
+    return n + 1
+
+
+# f = open("across5.txt")
+# ab = f.read().split()
+# print(across5("abcdef", "bcdahalremf"))
+# print(across5(ab[0], ab[1]))
 
 def down2(s):
     s_right = s # removing chars from right
@@ -141,10 +146,10 @@ def longest_palindrome(s):
 
     return highest + sum(h)
 
-print(down3("abccaa"))
+# print(down3("abccaa"))
 
-r = down3("aabbbbbbbaabbaaaabbbabbbaaabbabbaaaaabbaaaaababbaaaaabaabbbaabaaabaababbbaaaaaabaaabbaaababaababbbaabbbbaabbbaaaaaaaaababbbbbaabbbabbabababbaaabaabababbbaabbbaabaaabbbaabbbabbbabbabaabbabababbbabbaabb")
-print(r)
+# r = down3("aabbbbbbbaabbaaaabbbabbbaaabbabbaaaaabbaaaaababbaaaaabaabbbaabaaabaababbbaaaaaabaaabbaaababaababbbaabbbbaabbbaaaaaaaaababbbbbaabbbabbabababbaaabaabababbbaabbbaabaaabbbaabbbabbbabbabaabbabababbbabbaabb")
+# print(r)
 
 
 
