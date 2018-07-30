@@ -1,3 +1,49 @@
+import itertools as it
+def down4(l, r):
+    n = r
+    fibos = base_fibonacci(n)
+    N = 0
+    while n >= l:
+        if n < fibos[-1]:
+            fibos = fibos[:-1]
+
+        if len(valid_fibos(fibos, n)) > 0:
+            N = N + 1
+        n = n - 1
+
+    return N
+
+def valid_fibos(fibos, N):
+    # remove unneeded fibos
+    n = 0
+    valid = []
+    while n < len(fibos):
+        if N % fibos[n] == 0:
+            valid.append(fibos[n])
+
+        n = n + 1
+
+    return valid
+
+def base_fibonacci(n):
+    prev = 1
+    fibo = 2 # omit 1,1 since any power is 1
+    fibos = []
+    fibos.append(fibo)
+    while fibo <= n:
+        temp = fibo
+        fibo = fibo + prev
+        fibos.append(fibo)
+        prev = temp
+
+    return fibos[:-1]
+
+# print(base_fibonacci(123456))
+# print(valid_fibos(base_fibonacci(123456), 123456))
+# print(valid_fibos(base_fibonacci(654321), 654321))
+# print(valid_fibos(base_fibonacci(1000), 288))
+# print(down4(123456, 654321))
+
 def down1(n, c):
 
     # number of pairs not in range
