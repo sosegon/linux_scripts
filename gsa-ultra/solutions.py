@@ -1,3 +1,27 @@
+def down1(n, c):
+
+    # number of pairs not in range
+    N = 0
+    for t in c:
+        if t[0] > n or t[1] > n:
+            N = N + 1
+
+    e = len(c) - N
+    return 2**e % (10**9 + 7)
+
+# f = open("down1.txt", "r")
+# i = f.read().split("\n")
+# comb = i[1].split()
+# print(len(comb))
+# print(len(list(set(comb))))
+# tupples = ()
+# for n in range(len(comb))[::2]:
+#     new_tuple = ((int(comb[n]), int(comb[n+1])),)
+#     tupples = tupples + new_tuple
+
+# r = down1(i[0], tupples)
+# print(r)
+
 def down8(n, m, r, c, k):
     w = [x - c[i - 1] - 1 for i, x in enumerate(c)][1:] # widhts
     h = [x - r[i - 1] - 1 for i, x in enumerate(r)][1:] # heights
@@ -605,21 +629,4 @@ def longest_palindrome(s):
 # # r = down3("wwwewewerrrrrrrrrrrr")
 # print("\n")
 # print(r)
-# def down1(n, c):
 
-#     return 1
-
-# f = open("down1.txt", "r")
-# i = f.read().split("\n")
-# comb = i[1].split()
-# print(len(comb))
-# print(len(list(set(comb))))
-# tupples = ()
-# for n in range(len(comb))[::2]:
-#     new_tuple = ((comb[n], comb[n+1]),)
-#     tupples = tupples + new_tuple
-
-# print(tupples)
-
-# r = down1(i[0], tupples)
-# print(r)
