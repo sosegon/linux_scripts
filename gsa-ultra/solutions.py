@@ -1,4 +1,77 @@
-import itertools as it
+def across10(t_n, t_a, t_b, t_x, t_y):
+    AliceWon = 0
+    i = 0
+    while i < len(t_n):
+        if play10(t_n[i], t_a[i], t_b[i], t_x[i], t_y[i]):
+            AliceWon = AliceWon + 1
+        i = i + 1
+
+    return AliceWon + 123
+
+def play10(n, A, B, X, Y):
+    removals = [3, 2, 1]
+    # Alice starts
+    (a, b) = sorted((A, B))
+    (x, y) = sorted((X, Y))
+    N = n
+    turnAlice = True
+    while N > 0:
+        (c, d) = (a, b) if turnAlice else (x, y)
+
+        index = 0
+        toRemove = 0
+        while index < len(removals):
+            result = N - removals[index]
+            if result > 0 and (result % c == 0 or result % d == 0):
+                index = index + 1
+                continue
+            elif result >= 0:
+                if result >= c and result >=d:
+                    if result % c != 0 and result % d != 0:
+                        toRemove = removals[index]
+                elif result >= c and result < d:
+                    if result % c != 0:
+                        toRemove = removals[index]
+                else:
+                    toRemove = removals[index]
+                break
+
+            index = index + 1
+
+        if toRemove == 0:
+            return not turnAlice
+        else:
+            # print("c, d: " + str(c) + ", "+ str(d))
+            # print(str(turnAlice) + " : " + str(N) + ", " + str(toRemove))
+            N = N - toRemove
+            turnAlice = not turnAlice
+
+    return not turnAlice
+
+# print(play10(23, 4, 5, 3, 6))
+# print(play10(12, 2, 3, 6, 15))
+# print(play10(37, 4, 5, 4, 5))
+# print(play10(79, 6, 6, 6, 6))
+# print(play10(20, 3, 16, 7, 8))
+
+# f = open("across10.txt", "r")
+# rows = f.read().split("\n")
+# n = ()
+# a = ()
+# b = ()
+# x = ()
+# y = ()
+# for r in rows:
+#     vals = r.split(",")
+#     n = n + (int(vals[0]),)
+#     a = a + (int(vals[1]),)
+#     b = b + (int(vals[2]),)
+#     x = x + (int(vals[3]),)
+#     y = y + (int(vals[4]),)
+
+# print(across10(n, a, b, x, y))
+
+
 def down4(l, r):
     n = r
     fibos = base_fibonacci(n)
