@@ -1,6 +1,12 @@
-def down8(nn, mm, r, c, k):
-    w = sorted([x - c[i - 1] - 1 for i, x in enumerate(c)][1:]) # widhts
-    h = sorted([x - r[i - 1] - 1 for i, x in enumerate(r)][1:]) # heights
+def down8(n, m, r, c, k):
+    w = [x - c[i - 1] - 1 for i, x in enumerate(c)][1:] # widhts
+    h = [x - r[i - 1] - 1 for i, x in enumerate(r)][1:] # heights
+
+    w = [c[0] - 1] + w + [m - c[-1] - 0]
+    h = [r[0] - 1] + h + [n - r[-1] - 0]
+
+    w = sorted(w)
+    h = sorted(h)
 
     # print(w)
     # print(h)
@@ -8,11 +14,11 @@ def down8(nn, mm, r, c, k):
     if k == 0:
         return None
 
-    m = len(w) - 1 # horizontal limit
-    n = len(h) - 1 # vertical limit
+    M = len(w) - 1 # horizontal limit
+    N = len(h) - 1 # vertical limit
 
     s = w[0] * h[0] # area
-    N = 1 # counter
+    C = 1 # counter
     #areas = []
     #areas.append(s)
 
@@ -24,7 +30,7 @@ def down8(nn, mm, r, c, k):
     H = h[Hj] * w[Hi]
     V = h[Vj] * w[Vi]
 
-    while N < k:
+    while C < k:
         # print("\n")
         # print("H: "+ str(H))
         # print("V: "+ str(V))
@@ -36,51 +42,52 @@ def down8(nn, mm, r, c, k):
                 s = V
                 #areas.append(s)
                 V = None
-                N = N + 1
+                C = C + 1
                 continue
             elif H is not None:
                 s = H
                 #areas.append(s)
                 H = None
-                N = N + 1
+                C = C + 1
                 continue
             else:
                 break
 
         if H <= V:
             s = H
-            if not Hi + 1 < m:
+            if not Hi + 1 < M:
                 Hi = Vi + 1
                 Hj = Hj + 1
             else:
                 Hi = Hi + 1
 
-            if Hi < m and Hj < n:
+            if Hi < M and Hj < N:
                 H = h[Hj] * w[Hi]
             else:
                 H = None
         else:
             s = V
-            if not Vj + 1 < n:
+            if not Vj + 1 < N:
                 Vj = Hj + 1
                 Vi = Vi + 1
             else:
                 Vj = Vj + 1
 
-            if Vi < m and Vj < n:
+            if Vi < M and Vj < N:
                 V = h[Vj] * w[Vi]
             else:
                 V = None
 
-        N = N + 1
+        C = C + 1
         #areas.append(s)
 
     return s
 
 
-# a = down8(6, 6, (1,7,12,15,21,23), (1,7,11,14,24,31), 5)
-# for i in range(29):
-#     a = down8(6, 6, (1,10,16,18,28,39), (1,6,10,13,19,26), i)
+# a = down8(50, 50, (1,7,12,15,21,23), (1,7,11,14,24,31), 5)
+# print(a)
+# for i in range(37):
+#     a = down8(50, 50, (1,10,16,18,28,39), (1,6,10,13,19,26), i)
 #     print(a)
 
 # f = open("down8.txt", "r")
