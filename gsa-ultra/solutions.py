@@ -4,10 +4,7 @@ def down4(l, r):
     fibos = base_fibonacci(n)
     N = 0
     while n >= l:
-        if n < fibos[-1]:
-            fibos = fibos[:-1]
-
-        if len(valid_fibos(fibos, n)) > 0:
+        if len(valid_fibos(fibos, n)) <= 0:
             N = N + 1
         n = n - 1
 
