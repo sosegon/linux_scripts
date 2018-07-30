@@ -1,4 +1,100 @@
-def down8(n, m, r, c, k):
+def down8(nn, mm, r, c, k):
+    w = sorted([x - c[i - 1] - 1 for i, x in enumerate(c)][1:]) # widhts
+    h = sorted([x - r[i - 1] - 1 for i, x in enumerate(r)][1:]) # heights
+
+    # print(w)
+    # print(h)
+
+    if k == 0:
+        return None
+
+    m = len(w) - 1 # horizontal limit
+    n = len(h) - 1 # vertical limit
+
+    s = w[0] * h[0] # area
+    N = 1 # counter
+    #areas = []
+    #areas.append(s)
+
+    Hi = 1
+    Hj = 0
+    Vi = 0
+    Vj = 1
+
+    H = h[Hj] * w[Hi]
+    V = h[Vj] * w[Vi]
+
+    while N < k:
+        # print("\n")
+        # print("H: "+ str(H))
+        # print("V: "+ str(V))
+        # print("Vi, Vj: " + str(Vi) + ", " + str(Vj))
+        # print("Hi, Hj: " + str(Hi) + ", " + str(Hj))
+
+        if H is None or V is None:
+            if V is not None:
+                s = V
+                #areas.append(s)
+                V = None
+                N = N + 1
+                continue
+            elif H is not None:
+                s = H
+                #areas.append(s)
+                H = None
+                N = N + 1
+                continue
+            else:
+                break
+
+        if H <= V:
+            s = H
+            if not Hi + 1 < m:
+                Hi = Vi + 1
+                Hj = Hj + 1
+            else:
+                Hi = Hi + 1
+
+            if Hi < m and Hj < n:
+                H = h[Hj] * w[Hi]
+            else:
+                H = None
+        else:
+            s = V
+            if not Vj + 1 < n:
+                Vj = Hj + 1
+                Vi = Vi + 1
+            else:
+                Vj = Vj + 1
+
+            if Vi < m and Vj < n:
+                V = h[Vj] * w[Vi]
+            else:
+                V = None
+
+        N = N + 1
+        #areas.append(s)
+
+    return s
+
+
+# a = down8(6, 6, (1,7,12,15,21,23), (1,7,11,14,24,31), 5)
+# for i in range(29):
+#     a = down8(6, 6, (1,10,16,18,28,39), (1,6,10,13,19,26), i)
+#     print(a)
+
+# f = open("down8.txt", "r")
+# v = f.read().split("\n")
+# dim = v[0].split()
+# n = int(dim[0])
+# m = int(dim[1])
+# k = int(v[3])
+# r = tuple(map(int, v[1].split()))
+# c = tuple(map(int, v[2].split()))
+# a = down8(n, m, r, c, k)
+# print(a)
+
+def down88(n, m, r, c, k):
     w = sorted([x - c[i - 1] for i, x in enumerate(c)][1:]) # widhts
     h = sorted([x - r[i - 1] for i, x in enumerate(r)][1:]) # heights
 
@@ -7,8 +103,10 @@ def down8(n, m, r, c, k):
     N = 1
     visited = []
     pending = []
+    area = w[0] * h[0]
     areas = []
     areas.append(w[0] * h[0])
+    my_area = 0
     i = 0
     j = 0
 
@@ -47,9 +145,11 @@ def down8(n, m, r, c, k):
                 # remove as needed
                 while N < k:
                     pending = pending[:-1]
-                    print("\nremove")
-                    print(pending)
+                    #visited = removeVisited(visited, last[1], last[2])
+                    # print("\nremove")
+                    # print(pending)
                     areas.append(last[0])
+                    my_area = last[0]
 
                     N = N + 1
                     if len(pending) > 0:
@@ -65,8 +165,8 @@ def down8(n, m, r, c, k):
                         if not isVisited(visited, il, jl):
                             area = w[il] * h[jl]
                             pending = add_pending(pending, (area, il, jl))
-                            print("\nsub right")
-                            print(pending)
+                            # print("\nsub right")
+                            # print(pending)
                             visited = visited + [[il, jl]]
 
                     il = last[1]
@@ -75,14 +175,16 @@ def down8(n, m, r, c, k):
                         if not isVisited(visited, il, jl):
                             area = w[il] * h[jl]
                             pending = add_pending(pending, (area, il, jl))
-                            print("\nsub left")
-                            print(pending)
+                            # print("\nsub left")
+                            # print(pending)
                             visited = visited + [[il, jl]]
 
                     pending = pending[:-1]
-                    print("\nremove")
-                    print(pending)
+                    #visited = removeVisited(visited, last[1], last[2])
+                    # print("\nremove")
+                    # print(pending)
                     areas.append(last[0])
+                    my_area = last[0]
 
                     N = N + 1
                     if len(pending) > 0:
@@ -96,29 +198,46 @@ def down8(n, m, r, c, k):
         if hasLeft and hasRight:
             if right <= left:
                 pending = add_pending(pending, (left, i, j+1))
-                print("\nleft")
-                print(pending)
+                # print("\nleft")
+                # print(pending)
                 i = i + 1
                 areas.append(right)
+                my_area = right
             else:
                 pending = add_pending(pending, (right, i+1, j))
-                print("\nright")
-                print(pending)
+                # print("\nright")
+                # print(pending)
                 j = j + 1
                 areas.append(left)
+                my_area = left
             N = N + 1
         elif hasLeft:
             pending = add_pending(pending, (left, i, j+1))
-            print("\nleft")
-            print(pending)
+            # print("\nleft")
+            # print(pending)
             j = j + 1
         elif hasRight:
             pending = add_pending(pending, (right, i+1, j))
-            print("\nright")
-            print(pending)
+            # print("\nright")
+            # print(pending)
             i = i + 1
 
     return areas
+
+def removeVisited(visited, i, j):
+    if len(visited) == 0:
+        return []
+    else:
+        index = 0
+        while index < len(visited):
+            current = visited[index]
+            if current[0] == i and current[1] == j:
+                visited = visited[:index] + visited[:index+1]
+                break
+
+            index = index + 1
+
+    return visited
 
 def isVisited(visited, i, j):
     if len(visited) == 0:
@@ -151,8 +270,6 @@ def add_pending(listed, elem):
 
     return listed
 
-a = down8(6, 6, (1,7,12,15,21,23), (1,7,11,14,24,31), 25)
-print(a)
 
 # f = open("down8.txt", "r")
 # v = f.read().split("\n")
@@ -162,7 +279,7 @@ print(a)
 # k = int(v[3])
 # r = tuple(map(int, v[1].split()))
 # c = tuple(map(int, v[2].split()))
-# a = down8(n, m, r, c, 5)
+# a = down8(n, m, r, c, 5000)
 # print(a)
 
 
