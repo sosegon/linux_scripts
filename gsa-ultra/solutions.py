@@ -322,7 +322,7 @@ def base_fibonacci(n):
 # print(valid_fibos(base_fibonacci(123456), 123456))
 # print(valid_fibos(base_fibonacci(654321), 654321))
 # print(valid_fibos(base_fibonacci(1000), 288))
-print(down4(123456, 654321))
+# print(down4(123456, 654321))
 # print(down4(5, 100))
 
 def down1(n, c):
@@ -369,7 +369,7 @@ def down8(n, m, r, c, k):
     N = len(h) - 1 # vertical limit
 
     s = w[0] * h[0] # area
-    C = 1 # counter
+    C = 0 # counter
     #areas = []
     #areas.append(s)
 
