@@ -6,10 +6,21 @@ def down9(n, m):
             if cell == "S":
                 start_pos = (i, j)
 
-    colors = ["R", "G", "B", "C"]
-    # colors = ["R","C"]
-    distances = explore(n, m, start_pos, colors, Node())
-    return sorted(distances)[0] * 1000
+    colors = [
+        ["R", "G", "B", "C"],
+        ["R", "B", "G", "C"],
+        ["B", "R", "G", "C"],
+        ["B", "G", "R", "C"],
+        ["G", "R", "B", "C"],
+        ["G", "B", "R", "C"]
+    ]
+    bests = []
+    for c in colors:
+        distances = explore(n, m, start_pos, c, Node())
+        win = sorted(distances)[0]
+        bests.append(win)
+
+    return sorted(bests)[0] * 1000
 
 class Node():
     def __init__(self):
@@ -148,20 +159,20 @@ class Cell():
 
         return path
 
-f = open("down9.txt", "r")
-lines = f.read().split("\n")
-n = int(lines[0])
-m = []
-i = 1
-while i < len(lines):
-    line = lines[i]
-    row = []
-    for c in line:
-        row.append(c)
-    m.append(row)
-    i = i + 1
+# f = open("down9.txt", "r")
+# lines = f.read().split("\n")
+# n = int(lines[0])
+# m = []
+# i = 1
+# while i < len(lines):
+#     line = lines[i]
+#     row = []
+#     for c in line:
+#         row.append(c)
+#     m.append(row)
+#     i = i + 1
 
-print(down9(n, m))
+# print(down9(n, m))
 
 def down6(t):
     out = 0
