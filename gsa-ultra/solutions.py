@@ -1,4 +1,5 @@
 def down9(n, m):
+    assert n >= 3 and n <= 100
     # find start
     start_pos = None
     for i, row in enumerate(m):
@@ -180,7 +181,9 @@ def down6(t):
     while i < len(t):
         case = t[i]
         N = case[0]
+        assert N >= 1 and N <= 1e5
         edges = case[1]
+        assert len(edges) <= 2 * 1e5
         intes = case[2]
         j = 0
         p = 1
@@ -188,6 +191,7 @@ def down6(t):
         while j < len(edges):
             next_a = edges[j][0]
             next_b = edges[j][1]
+            assert next_a >= 1 and next_b <= N
             if next_a in intes and next_b in intes:
                 p = 0
                 break
@@ -210,6 +214,7 @@ def across10(t_n, t_a, t_b, t_x, t_y):
     return AliceWon + 123
 
 def play10(n, A, B, X, Y):
+    assert n >= 5 and n <= 20000
     removals = [3, 2, 1]
     # Alice starts
     (a, b) = sorted((A, B))
@@ -274,6 +279,12 @@ def play10(n, A, B, X, Y):
 
 
 def down4(l, r):
+    assert l >= 1 and l <= 1e18
+    assert r >= 1 and r <= 1e18
+    assert r >= l
+    diff = r - l + 1
+    assert diff >= 1 and diff <= 1e6
+
     n = r
     fibos = base_fibonacci(n)
 
@@ -310,7 +321,7 @@ def base_fibonacci(n):
     fibo = 2 # omit 1,1 since any power is 1
     fibos = []
     fibos.append(fibo)
-    while fibo <= n:
+    while fibo < n:
         temp = fibo
         fibo = fibo + prev
         fibos.append(fibo)
@@ -326,7 +337,8 @@ def base_fibonacci(n):
 # print(down4(5, 100))
 
 def down1(n, c):
-
+    assert n >= 1 and n <= 1e4
+    assert len(c) >=1 and len(c) <= 1e5
     # number of pairs not in range
     N = 0
     for t in c:
@@ -346,10 +358,20 @@ def down1(n, c):
 #     new_tuple = ((int(comb[n]), int(comb[n+1])),)
 #     tupples = tupples + new_tuple
 
-# r = down1(i[0], tupples)
+# r = down1(int(i[0]), tupples)
 # print(r)
 
 def down8(n, m, r, c, k):
+    assert n >= 1 and n <= 1e6
+    assert m >= 1 and m <= 1e6
+    assert len(r) >= 1 and len(r) <= 1e4
+    assert len(c) >= 1 and len(c) <= 1e4
+    assert k >= 1
+
+    for a, e in zip(r, c):
+        assert a >= 1 and a <= n
+        assert e >= 1 and e <= m
+
     w = [x - c[i - 1] - 1 for i, x in enumerate(c)][1:] # widhts
     h = [x - r[i - 1] - 1 for i, x in enumerate(r)][1:] # heights
 
@@ -644,6 +666,7 @@ def add_pending(listed, elem):
 
 
 def across12(n, x, r):
+    assert n >= 1 and n <= 200
     assert n == len(x) and n == len(r)
 
     X = list(x)
@@ -651,6 +674,8 @@ def across12(n, x, r):
 
     XR = []
     for xx, rr in zip(X, R):
+        assert xx >= 0 and xx <= 10000
+        assert rr >= 0 and rr <= 10000
         XR.append([xx, rr])
 
     XR = sorted(XR, key=lambda x:x[1], reverse=True) # sort by power
@@ -711,10 +736,10 @@ def across12(n, x, r):
     #print(own)
     return n * 10000
 
-# print(across12(10, (9,2,21,4,11,50,29,3,5,20), (1,1,9,2,1,10,3,3,2,5)))
+print(across12(10, (9,2,21,4,11,50,29,3,5,20), (1,1,9,2,1,10,3,3,2,5)))
 
 def down11(a):
-    assert a >= 100 and a <= 10000
+    assert a >= 500 and a <= 10000
 
     n = 0
     next_I = 10
@@ -770,6 +795,7 @@ def across5(a, b):
 # print(across5(ab[0], ab[1]))
 
 def down2(s):
+    assert len(s) >= 3 and len(s) <= 2000
     s_right = s # removing chars from right
     n = 0
 
@@ -803,7 +829,7 @@ def down2(s):
 #print(down2("RBYYYRRBYYYRBBBRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYRBBRBYYYRBBBBBRYYRYRYRBBRYBRYBBBRYRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBYRYRYRBRYBYYBRBYYYRBBRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBRBYYYRBBBBBRYYRYRYRBRYBYYBBRRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBRBRYBBRYBRYBRYBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRBRYBYBBRBRBRBRYBBRYBRYBRYBBRYYRRBYYYRRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYYBBRYBRYBRYBBBBRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYRBYRYBRYBRYBYRYRYRBRYBYYBRBYYYRBBRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBRBYYYRBRYBBBBBBRYYRYRYRBRYBYYBBRRBYYBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBRBRYBBRYBRYBRYBBRYYRYRYRBRYBYYRBBRBRBRYBBRYBRYBRYBBRBRBRYBBRYBYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBRBRYBBRYBRYBRYBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBRYYRRBYYYRRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYBBRYBRBYYYRBBBBBRYYRYRYRBRYBYYBBRBRBRYBBRYBRYBRYB"))
 
 def down3(s):
-    assert len(s) >= 4
+    assert len(s) >= 200 and len(s) <= 5000
 
     l = len(s)
     index = 2
