@@ -1,3 +1,28 @@
+def down6(t):
+    out = 0
+    i = 0
+    while i < len(t):
+        case = t[i]
+        N = case[0]
+        edges = case[1]
+        intes = case[2]
+        j = 0
+        p = 1
+
+        while j < len(edges):
+            next_a = edges[j][0]
+            next_b = edges[j][1]
+            if next_a in intes and next_b in intes:
+                p = 0
+                break
+
+            j = j + 1
+
+        out = out + (p*2**i)
+        i = i + 1
+
+    return out % (10**9 + 7)
+
 def across10(t_n, t_a, t_b, t_x, t_y):
     AliceWon = 0
     i = 0
