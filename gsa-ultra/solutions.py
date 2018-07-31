@@ -1,4 +1,58 @@
 def down9(n, m):
+    # find start
+    start_pos = None
+    for i, row in enumerate(m):
+        for j, cell in enumerate(row):
+            if cell == "S":
+                start_pos = (i, j)
+
+    colors = ["R", "G", "B", "C"]
+    # colors = ["R","C"]
+    distances = explore(n, m, start_pos, colors, Node())
+    return sorted(distances)[0] * 1000
+
+class Node():
+    def __init__(self):
+        self.previous = None
+        self.d = -1 # distance to previous
+
+    def path(self):
+        temp = self
+        path = []
+        cost = 0
+        while temp.previous is not None:
+            path.append(temp.d)
+            cost = cost + temp.d
+            temp = temp.previous
+
+        # return path
+        return cost
+
+def explore(n, m, start_pos, colors, route):
+    if len(colors) == 0:
+        return [route.path()]
+
+    paths = []
+
+    for i, row in enumerate(m):
+        for j, cell in enumerate(row):
+            if cell in colors:
+                n_colors = colors[:]
+                n_colors.remove(cell)
+                d = find_path(n, m, start_pos, (i, j))
+                if d == -1:
+                    continue
+
+                sub_route = Node()
+                sub_route.previous = route
+                sub_route.d = d
+
+                n_paths = explore(n, m, (i, j), n_colors, sub_route)
+                paths = paths + n_paths
+
+    return paths
+
+def find_path(n, m, pos_init, pos_end):
     n_rows = len(m)
     n_cols = len(m[0])
     open_set = []
@@ -14,10 +68,10 @@ def down9(n, m):
         while j < n_cols:
             cell = Cell(m[i][j], i, j)
             row.append(cell)
-            if cell.t is "S":
+            if (i, j) == pos_init:
                 start = cell
                 open_set.append(start)
-            elif cell.t is "C":
+            elif (i, j) == pos_end:
                 end = cell
             j = j + 1
         maze.append(row)
@@ -55,7 +109,7 @@ def down9(n, m):
                 neighbor.updateHeuristic(end)
                 neighbor.previous = current
 
-    return 0
+    return -1
 
 class Cell():
     def __init__(self, type, i, j):
@@ -94,20 +148,20 @@ class Cell():
 
         return path
 
-# f = open("down9.txt", "r")
-# lines = f.read().split("\n")
-# n = int(lines[0])
-# m = []
-# i = 1
-# while i < len(lines):
-#     line = lines[i]
-#     row = []
-#     for c in line:
-#         row.append(c)
-#     m.append(row)
-#     i = i + 1
+f = open("down9.txt", "r")
+lines = f.read().split("\n")
+n = int(lines[0])
+m = []
+i = 1
+while i < len(lines):
+    line = lines[i]
+    row = []
+    for c in line:
+        row.append(c)
+    m.append(row)
+    i = i + 1
 
-# print(down9(n, m))
+print(down9(n, m))
 
 def down6(t):
     out = 0
