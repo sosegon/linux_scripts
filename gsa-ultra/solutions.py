@@ -276,25 +276,34 @@ def play10(n, A, B, X, Y):
 def down4(l, r):
     n = r
     fibos = base_fibonacci(n)
+
     N = 0
     while n >= l:
-        if len(valid_fibos(fibos, n)) <= 0:
+        if not is_fibo_formed(fibos, n):
             N = N + 1
+            # print("n:" + str(n))
+
+        if n == fibos[-1]:
+            fibos = fibos[:-1]
+
         n = n - 1
 
     return N
 
-def valid_fibos(fibos, N):
-    # remove unneeded fibos
-    n = 0
-    valid = []
-    while n < len(fibos):
-        if N % fibos[n] == 0:
-            valid.append(fibos[n])
+def is_fibo_formed(fibos, N):
+    m = len(fibos)
+    while m >= 1:
+        sub_fibos = fibos[:m]
+        n = len(sub_fibos) - 1
+        while n >= 0:
+            while N % sub_fibos[n] == 0:
+                N = N / sub_fibos[n]
+                if N == 1:
+                    return True
+            n = n - 1
+        m = m - 1
 
-        n = n + 1
-
-    return valid
+    return False
 
 def base_fibonacci(n):
     prev = 1
@@ -309,11 +318,12 @@ def base_fibonacci(n):
 
     return fibos[:-1]
 
-# print(base_fibonacci(123456))
+# print(base_fibonacci(654321))
 # print(valid_fibos(base_fibonacci(123456), 123456))
 # print(valid_fibos(base_fibonacci(654321), 654321))
 # print(valid_fibos(base_fibonacci(1000), 288))
-# print(down4(123456, 654321))
+print(down4(123456, 654321))
+# print(down4(5, 100))
 
 def down1(n, c):
 
