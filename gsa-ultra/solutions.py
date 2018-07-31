@@ -1,3 +1,114 @@
+def down9(n, m):
+    n_rows = len(m)
+    n_cols = len(m[0])
+    open_set = []
+    closed_set = []
+    maze = []
+    start = None
+    end = None
+
+    i = 0
+    while i < n_rows:
+        j = 0
+        row = []
+        while j < n_cols:
+            cell = Cell(m[i][j], i, j)
+            row.append(cell)
+            if cell.t is "S":
+                start = cell
+                open_set.append(start)
+            elif cell.t is "C":
+                end = cell
+            j = j + 1
+        maze.append(row)
+        i = i + 1
+
+    # add neighbors
+    for row in maze:
+        for cell in row:
+            cell.add_neighbors(maze)
+
+    while len(open_set) > 0:
+        best = 0
+        for i, cell in enumerate(open_set):
+            if cell.f < open_set[best].f:
+                best = i
+
+        current = open_set[best]
+        if current is end:
+            return len(end.path())
+
+        open_set.remove(current)
+        closed_set.append(current)
+
+        for neighbor in current.neighbors:
+            if neighbor not in closed_set and neighbor.t is not "W":
+                alt_g = neighbor.g = current.g + 1
+
+                if neighbor in open_set:
+                    if alt_g < neighbor.g:
+                        neighbor.g = alt_g
+                else:
+                    neighbor.g = alt_g
+                    open_set.append(neighbor)
+
+                neighbor.updateHeuristic(end)
+                neighbor.previous = current
+
+    return 0
+
+class Cell():
+    def __init__(self, type, i, j):
+        self.f = 0
+        self.g = 0
+        self.h = 0
+        self.i = i
+        self.j = j
+        self.t = type
+        self.previous = None
+        self.neighbors = []
+
+    def add_neighbors(self, maze):
+        i = self.i
+        j = self.j
+
+        if i < len(maze) - 1:
+            self.neighbors.append(maze[i + 1][j])
+        if i > 0:
+            self.neighbors.append(maze[i - 1][j])
+        if j < len(maze[0]) - 1:
+            self.neighbors.append(maze[i][j + 1])
+        if j > 0:
+            self.neighbors.append(maze[i][j - 1])
+
+    def updateHeuristic(self, end):
+        self.h = abs(self.i - end.i) + abs(self.j - end.j)
+        self.f = self.g + self.h
+
+    def path(self):
+        temp = self
+        path = []
+        while temp.previous is not None:
+            path.append(temp.previous)
+            temp = temp.previous
+
+        return path
+
+# f = open("down9.txt", "r")
+# lines = f.read().split("\n")
+# n = int(lines[0])
+# m = []
+# i = 1
+# while i < len(lines):
+#     line = lines[i]
+#     row = []
+#     for c in line:
+#         row.append(c)
+#     m.append(row)
+#     i = i + 1
+
+# print(down9(n, m))
+
 def down6(t):
     out = 0
     i = 0
