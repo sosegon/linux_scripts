@@ -5,12 +5,15 @@
 export HOME=/home/sebastian
 export SHARED=/mnt/linux_shared/shared
 export JAVA_HOME=$SHARED/jdk1.8.0_131
-export ANDROID_SDK=$SHARED/AndroidSdk/android-sdk-linux
-export ANDROID_NDK=$SHARED/AndroidNdk/android-ndk-r12b
-export ANDROID_STUDIO=$SHARED/android-studio
+export ANDROID_SDK=$SHARED/software/AndroidSdk/android-sdk-linux
+export ANDROID_NDK=$SHARED/software/AndroidNdk/android-ndk-r12b
+export ANDROID_STUDIO=$SHARED/software/android-studio
 export ANDROID_HOME=$ANDROID_SDK
-export NACL_SDK_ROOT=$SHARED/nacl_sdk/pepper_49
+export NACL_SDK_ROOT=$SHARED/software/nacl_sdk/pepper_49
 export REPO=$SHARED/lwork
+export WORKON_HOME=$SHARED/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/mnt/linux_shared/shared/software/anaconda3/bin/python3
+source /mnt/linux_shared/shared/software/anaconda3/bin/virtualenvwrapper.sh
 
 export PATH=$SHARED/bin
 export PATH=$PATH:$HOME/.local/bin
@@ -23,15 +26,15 @@ export PATH=$PATH:/usr/bin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/bin
 export PATH=$PATH:$SHARED/anaconda3/bin
-#export PATH=$PATH:$SHARED/anaconda2/bin
+#export PATH=$PATH:$SHARED/software/anaconda2/bin
 export PATH=$PATH:$ANDROID_STUDIO/bin
 export PATH=$PATH:$ANDROID_SDK/tools
 export PATH=$PATH:$ANDROID_SDK/platform-tools
 export PATH=$PATH:$JAVA_HOME/bin
 export PATH=$PATH:$NACL_SDK_ROOT/toolchain/linux_x86_glibc/bin
-export PATH=$PATH:$SHARED/matlab2/r2017b/bin/
+export PATH=$PATH:$SHARED/software/matlab2/r2017b/bin/
 
-export PATH=$SHARED/depot_tools:$PATH
+export PATH=$SHARED/software/depot_tools:$PATH
 
 export MLP_DATA_DIR=/mnt/linux_shared/shared/Documents/Universidad/MLP/mlpsosegon/data
 
@@ -80,12 +83,12 @@ force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
     else
-	color_prompt=
+    color_prompt=
     fi
 fi
 
