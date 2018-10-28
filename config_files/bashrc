@@ -4,7 +4,7 @@
 
 export HOME=/home/sebastian
 export SHARED=/mnt/linux_shared/shared
-export JAVA_HOME=$SHARED/jdk1.8.0_131
+export JAVA_HOME=$SHARED/software/jdk1.8.0_131
 export ANDROID_SDK=$SHARED/software/AndroidSdk/android-sdk-linux
 export ANDROID_NDK=$SHARED/software/AndroidNdk/android-ndk-r12b
 export ANDROID_STUDIO=$SHARED/software/android-studio
@@ -25,7 +25,7 @@ export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/bin
-export PATH=$PATH:$SHARED/anaconda3/bin
+export PATH=$PATH:$SHARED/software/anaconda3/bin
 #export PATH=$PATH:$SHARED/software/anaconda2/bin
 export PATH=$PATH:$ANDROID_STUDIO/bin
 export PATH=$PATH:$ANDROID_SDK/tools
