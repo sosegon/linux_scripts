@@ -30,3 +30,7 @@ echo "set spanish keyboard"
 # alias for git
 alias gt="git"
 echo "aliased git"
+
+# alias linux commands
+alias sd="sudo docker"
+alias pyw="python -m SimpleHTTPServer"
