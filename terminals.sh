@@ -15,7 +15,10 @@ then
 	xterm -hold -geometry 96x26+955+533 -fa 'Monospace' -fs 12 # bottom-right
 else
 	xterm -hold -geometry 95x25+0+0 -fa 'Monospace' -fs 12 & # top-letf
+	sleep .1
 	xterm -hold -geometry 96x25+955+26 -fa 'Monospace' -fs 12  & # top-right
+	sleep .1
 	xterm -hold -geometry 95x26+0+533 -fa 'Monospace' -fs 12  & # bottom-left
+	sleep .1
 	xterm -hold -geometry 96x26+955+533 -fa 'Monospace' -fs 12 # bottom-right
 fi
