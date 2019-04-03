@@ -8,15 +8,15 @@
 # Change your password in 'your_pasword'
 
 # privilegies
-echo 's3kut3' | sudo -S chown sebastian:sebastian /mnt
+echo 'your_pasword' | sudo -S chown sebastian:sebastian /mnt
 echo "set privilegies for mnt"
 
 # mount partition
-echo 's3kut3' | sudo -S mount -t ext4 /dev/sd$12 /mnt/linux_shared
+echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$12 /mnt/linux_shared
 echo "mount shared partition"
 
 # mount lubuntu partition
-echo 's3kut3' | sudo -S mount -t ext4 /dev/sd$14 /mnt/mint
+echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$14 /mnt/mint
 echo "mount mint partition"
 
 # set variables
@@ -44,5 +44,5 @@ alias nu="npm uninstall --save"
 alias nud="npm uninstall --save-dev"
 
 # alias ssh-agent
-alias sag 'eval "$(ssh-agent -s)'
+alias sag='eval "$(ssh-agent -s)'
 
