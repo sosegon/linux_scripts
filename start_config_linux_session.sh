@@ -8,15 +8,15 @@
 # Change your password in 'your_pasword'
 
 # privilegies
-echo 'your_password' | sudo -S chown sebastian:sebastian /mnt
+echo 's3kut3' | sudo -S chown sebastian:sebastian /mnt
 echo "set privilegies for mnt"
 
 # mount partition
-echo 'your_password' | sudo -S mount -t ext4 /dev/sda2 /mnt/linux_shared
+echo 's3kut3' | sudo -S mount -t ext4 /dev/sd$12 /mnt/linux_shared
 echo "mount shared partition"
 
 # mount lubuntu partition
-echo 'your_password' | sudo -S mount -t ext4 /dev/sda4 /mnt/mint
+echo 's3kut3' | sudo -S mount -t ext4 /dev/sd$14 /mnt/mint
 echo "mount mint partition"
 
 # set variables
@@ -34,5 +34,15 @@ echo "aliased git"
 # alias linux commands
 alias sd="sudo docker"
 
-#alias web server
+# alias web server
 alias pyw="python -m SimpleHTTPServer"
+
+# alias npm install/unistall
+alias ni="npm install --save"
+alias nid="npm install --save-dev"
+alias nu="npm uninstall --save"
+alias nud="npm uninstall --save-dev"
+
+# alias ssh-agent
+alias sag 'eval "$(ssh-agent -s)'
+
