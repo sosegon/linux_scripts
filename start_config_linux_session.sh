@@ -44,5 +44,5 @@ alias nu="npm uninstall --save"
 alias nud="npm uninstall --save-dev"
 
 # alias ssh-agent
-alias sag='eval "$(ssh-agent -s)'
+alias sag='eval "$(ssh-agent -s)"'
 
