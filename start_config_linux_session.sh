@@ -46,3 +46,8 @@ alias nud="npm uninstall --save-dev"
 # alias ssh-agent
 alias sag='eval "$(ssh-agent -s)"'
 
+# alias source activate
+alias soa='source activate'
+
+# alias source deactivate
+alias sod='source deactivate'
