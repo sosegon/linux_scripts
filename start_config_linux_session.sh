@@ -51,3 +51,6 @@ alias soa='source activate'
 
 # alias source deactivate
 alias sod='source deactivate'
+
+# export dependencies of conda env
+alias conexp = 'conda env export | grep -v "^prefix: " > '
