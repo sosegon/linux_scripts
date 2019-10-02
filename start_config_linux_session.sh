@@ -54,3 +54,9 @@ alias sod='source deactivate'
 
 # export dependencies of conda env
 alias conexp = 'conda env export | grep -v "^prefix: " > '
+
+# set keyboard to spanish
+alias kes='setxkbmap -layout "es,es"'
+
+# set keyboard to english
+alias ken='setxkbmap -layout "us"'
