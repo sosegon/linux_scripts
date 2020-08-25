@@ -43,6 +43,12 @@ alias nid="npm install --save-dev"
 alias nu="npm uninstall --save"
 alias nud="npm uninstall --save-dev"
 
+# alias yarn
+alias yi="yarn add"
+alias yid="yarn add --dev"
+alias yu="yarn remove"
+alias yud="yarn remove"
+
 # alias ssh-agent
 alias sag='eval "$(ssh-agent -s)"'
 
