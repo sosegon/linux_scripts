@@ -34,6 +34,7 @@ echo "aliased git"
 # alias linux commands
 alias sd="sudo docker"
 alias sdc="sudo docker container"
+alias sdcstop="sudo docker container stop `sudo docker ps -a -q`"
 
 # alias web server
 alias pyw="python -m SimpleHTTPServer"
