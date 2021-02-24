@@ -4,9 +4,9 @@
 
 export HOME=/home/sebastian
 export SHARED=/mnt/linux_shared/shared
-export JAVA_HOME=$SHARED/software/jdk1.8.0_131
-export ANDROID_SDK=$SHARED/software/AndroidSdk/android-sdk-linux
-export ANDROID_NDK=$SHARED/software/AndroidNdk/android-ndk-r12b
+export JAVA_HOME=$SHARED/software/jdk-11.0.4
+export ANDROID_SDK=$SHARED/software/android-sdk-linux
+export ANDROID_NDK=$SHARED/software/android-ndk-r12b
 export ANDROID_STUDIO=$SHARED/software/android-studio
 export ANDROID_HOME=$ANDROID_SDK
 export NACL_SDK_ROOT=$SHARED/software/nacl_sdk/pepper_49
@@ -25,8 +25,10 @@ export PATH=$PATH:/usr/sbin
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/sbin
 export PATH=$PATH:/bin
+export PATH=$PATH:$SHARED/software/node-v10.16.2-linux-x64/bin
+# export PATH=$PATH:$SHARED/software/miniconda3/bin
 export PATH=$PATH:$SHARED/software/anaconda3/bin
-#export PATH=$PATH:$SHARED/software/anaconda2/bin
+# export PATH=$PATH:$SHARED/software/anaconda2/bin
 export PATH=$PATH:$ANDROID_STUDIO/bin
 export PATH=$PATH:$ANDROID_SDK/tools
 export PATH=$PATH:$ANDROID_SDK/platform-tools
