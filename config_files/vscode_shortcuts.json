@@ -1,0 +1,9 @@
+// Place your key bindings in this file to override the defaults
+[
+  { "key": "ctrl+1", "command": "workbench.action.toggleSidebarVisibility" },
+  {
+    "key": "shift+alt+z",
+    "command": "workbench.action.editorLayoutTwoColumns"
+  },
+  { "key": "shift+alt+x", "command": "workbench.action.editorLayoutSingle" }
+]
