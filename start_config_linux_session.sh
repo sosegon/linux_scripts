@@ -45,6 +45,14 @@ alias nid="npm install --save-dev"
 alias nu="npm uninstall --save"
 alias nud="npm uninstall --save-dev"
 
+# alias expo
+alias expostart="rm -rf .expo && npm start"
+
+# build react native apk
+alias rnbuildd="react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleDebug && cd .."
+alias rnbuildr="react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && cd android && ./gradlew assembleRelease && cd .."
+alias rndebug="react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/ && npx react-native run-android && react-native log-android"
+
 # alias yarn
 alias yi="yarn add"
 alias yid="yarn add --dev"
