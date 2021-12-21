@@ -12,11 +12,11 @@ echo 'your_pasword' | sudo -S chown sebastian:sebastian /mnt
 echo "set privilegies for mnt"
 
 # mount partition
-echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$12 /mnt/linux_shared
+echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$1 /mnt/linux_shared
 echo "mount shared partition"
 
 # mount lubuntu partition
-echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$14 /mnt/mint
+echo 'your_pasword' | sudo -S mount -t ext4 /dev/sd$1 /mnt/mint
 echo "mount mint partition"
 
 # set variables
@@ -76,3 +76,6 @@ alias kes='setxkbmap -layout "es,es"'
 
 # set keyboard to english
 alias ken='setxkbmap -layout "us"'
+
+# Login to npm
+alias npmu13='npm login --scope=@upstart13-com --registry=https://npm.pkg.github.com'
