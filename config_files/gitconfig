@@ -4,7 +4,7 @@
 	cm = commit -m
 	df = diff
 	ch = checkout
-	lgo = log --pretty=format:%Cred%an%n%Cgreen%h%n%s
+	lgo = log --pretty=format:%Cred%an%n%Cgreen%h%n%s%n
 	lgf = log --pretty=format:%Cred%h%n%Cgreen%an%n---%s%n%n%b
 	ad = add
 	br = branch
@@ -14,7 +14,8 @@
 	rshs = reset --hard HEAD^
 	chf = checkout -- file
 [user]
+	# email = svelasquez@upstart13.com
 	email = anse23@hotmail.com
-	name = Sebastian
+	name = Sebastian Velasquez
 [push]
 	default = simple
