@@ -79,3 +79,10 @@ alias ken='setxkbmap -layout "us"'
 
 # Login to npm
 alias npmu13='npm login --scope=@upstart13-com --registry=https://npm.pkg.github.com'
+
+# git user email U13, normal
+alias gtu13='git config --global  user.email svelasquez@upstart13.com'
+alias gtnor='git config --global  user.email anse23@hotmail.com'
+
+# ssh connect to vm
+alias wgsnssh='ssh svelasquez@dev-wgsn-svelasquez.use1.wgsndev.com'
