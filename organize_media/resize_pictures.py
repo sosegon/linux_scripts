@@ -2,9 +2,18 @@ import sys
 import os
 from os import listdir
 from os.path import isfile, join
-from PIL import Image
+import subprocess
 import mimetypes
-import piexif
+import csv
+
+def write_logs(logs_file, logs):
+    # write to file
+    with open(logs_file, 'w') as f:
+        header = ['status', 'file', 'original_size', 'new_size', 'error']
+        writer = csv.DictWriter(f, fieldnames=header)
+        writer.writeheader()
+        writer.writerows(logs)
+    f.close()
 
 def resize_pictures(folder_name,  max_size=1e6, images_processed=[]):
     for elem_name in listdir(folder_name):
@@ -14,16 +23,14 @@ def resize_pictures(folder_name,  max_size=1e6, images_processed=[]):
             try:
                 typefile = mimetypes.guess_type(elem_full_name)[0]
                 if typefile is not None and typefile.find('image') != -1:
-                    image = Image.open(elem_full_name)
-                    ratio = max_size / file_size
-                    image = image.resize((int(image.size[0] * ratio), int(image.size[1] * ratio)), Image.ANTIALIAS)
-                    exif_dict = piexif.load(image.info["exif"])
-                    image.save(elem_full_name, exif=piexif.dump(exif_dict))
+                    command = ['convert', elem_full_name, '-define', 'jpeg:extent=1MB', elem_full_name]
+                    subprocess.call(command)
+                    new_file_size = os.path.getsize(elem_full_name)
                     r = {
                         'status': 'RESIZED',
                         'file': elem_full_name,
-                        'original_size': file_size / (1024 * 1024) + 'MB',
-                        'new_size': file_size * ratio / (1024 * 1024) + 'MB',
+                        'original_size': f'{file_size / (1024 * 1024):.2f} MB',
+                        'new_size': f'{new_file_size / (1024 * 1024):.2f} MB',
                         'error': ''
                     }
                     images_processed.append(r)
@@ -32,13 +39,14 @@ def resize_pictures(folder_name,  max_size=1e6, images_processed=[]):
                 r = {
                     'status': 'RESIZED',
                     'file': elem_full_name,
-                    'original_size': file_size / (1024 * 1024) + 'MB',
+                    'original_size':f'{file_size / (1024 * 1024)} MB',
                     'new_size': '~MB',
                     'error': 'Error processing file'
                 }
                 images_processed.append(r)
-        else:
+        elif not isfile(elem_full_name):
             resize_pictures(elem_full_name, max_size, images_processed)
         
 results = []
-resize_pictures(sys.argv[1], sys.argv[2], results)
+resize_pictures(sys.argv[1], int(sys.argv[2]), results)
+write_logs(sys.argv[3], results)
