@@ -1,35 +1,7 @@
-'''
-    File name: organize_pictures.py
+#!/bin/bash
+"exec" "$ANACONDA/envs/organize_media/bin/python3" "$0" "$@"
 
-    Author: Sebastian Velasquez
-
-    Date created: 2023/04/12
-
-    Date last modified: 2023/04/12
-
-    Python Version: 3.6.9
-
-    License. The MIT License | https://opensource.org/licenses/MIT
-
-    Description: The purpose of this script is to copy pictures from one
-    location to another and organize them by date. The script extracts the
-    date the picture was taken from the EXIF data, or if that is not available,
-    the date the file was last modified. The pictures are then copied to a
-    folder named after the date they were taken.
-
-    Usage: In a Linux terminal, go to the location of the script and type the following:
-
-    python  organize_pictures.py /path/to/source/folder /path/to/destination/folder /path/to/log/file.log
-
-    In the command line of Windows, type like the following:
-
-    python  organize_pictures.py "C:\path\to\source\folder" "C:\path\to\destination\folder" "C:\path\to\log\file.log"
-
-    The first argument is the source folder that contains the original pictures.
-    The second argument is the destination folder where the new pictures will be located.
-    The third argument is the path to the log file where information about the copy process will be stored.
-'''
-import sys
+import argparse
 import os
 from os import listdir
 from os.path import isfile, join
@@ -96,7 +68,22 @@ def copy_pictures_by_date(folder_name, destination_folder, images_processed):
             copy_pictures_by_date(elem_full_name, destination_folder, images_processed)
 
     return images_processed
-    
-results = []
-copy_pictures_by_date(sys.argv[1], sys.argv[2], results)
-write_logs(sys.argv[3], results)
+
+def main():
+    parser = argparse.ArgumentParser(description='Organize pictures chronologically in folders by year and month')
+    parser.add_argument('folder_source', help='Original folder containing the pictures')
+    parser.add_argument('folder_destination', help='Destination folder to store the organized pictures')
+    parser.add_argument('--log_file', '-l', type=str, default='./organize_pictures.csv', help='Log file')
+
+    args = parser.parse_args()
+
+    folder_source = args.folder_source
+    folder_destination = args.folder_destination
+    log_file = args.log_file
+
+    results = []
+    copy_pictures_by_date(folder_source, folder_destination, results)
+    write_logs(log_file, results)
+
+if __name__ == '__main__':
+    main()

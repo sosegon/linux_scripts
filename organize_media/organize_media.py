@@ -1,23 +1,7 @@
+#!/bin/bash
+"exec" "$ANACONDA/envs/organize_media/bin/python3" "$0" "$@"
 
-'''
-    Media Organizer
-
-    Organizes media files (images, videos and audios) into subfolders based
-    on their creation date or metadata.
-
-    Usage: python media_organizer.py <source_folder> <destination_folder> <log_file>
-
-    Arguments:
-    - source_folder: The path to the folder containing the media files to organize.
-    - destination_folder: The path to the folder where the organized files will be copied to.
-    - log_file: The path to the file where the processing log will be written.
-
-    Dependencies:
-    - Python 3.x
-    - Pillow (PIL) library
-    - ffmpeg library
-'''
-import sys
+import argparse
 import os
 from os import listdir
 from os.path import isfile, join
@@ -119,6 +103,21 @@ def copy_media_by_date(folder_name, destination_folder, media_processed):
 
     return media_processed
 
-results = []
-copy_media_by_date(sys.argv[1], sys.argv[2], results)
-write_logs(sys.argv[3], results)
+def main():
+    parser = argparse.ArgumentParser(description='Organize media chronologically in folders by year and month')
+    parser.add_argument('folder_source', help='Original folder containing the media')
+    parser.add_argument('folder_destination', help='Destination folder to store the organized media')
+    parser.add_argument('--log_file', '-l', type=str, default='./organize_media.csv', help='Log file')
+
+    args = parser.parse_args()
+
+    folder_source = args.folder_source
+    folder_destination = args.folder_destination
+    log_file = args.log_file
+
+    results = []
+    copy_media_by_date(folder_source, folder_destination, results)
+    write_logs(log_file, results)
+
+if __name__ == '__main__':
+    main()

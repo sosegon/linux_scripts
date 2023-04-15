@@ -1,34 +1,7 @@
-'''
-    File name: organize_audios.py
+#!/bin/bash
+"exec" "$ANACONDA/envs/organize_media/bin/python3" "$0" "$@"
 
-    Author: Sebastian Velasquez
-
-    Date created: 2023/04/12
-
-    Date last modified: 2023/04/12
-
-    Python Version: 3.6.9
-
-    License. The MIT License | https://opensource.org/licenses/MIT
-
-    Description: This script copies audio files from one location to another and organizes them into
-    folders by their creation date. It uses FFmpeg to extract the creation time metadata from audio files
-    and falls back to the last modification time if that metadata is not present. The copied files are
-    organized into subfolders named after the year and month of their creation.
-
-    Usage: In a Linux terminal, go to the location of the script and type the following:
-
-    python organize_audios.py /path/to/source/folder /path/to/destination/folder /path/to/log/file
-
-    In the Windows command prompt, type like the following:
-
-    python organize_audios.py "C:\Path\To\Source\Folder" "C:\Path\To\Destination\Folder" "C:\Path\To\Log\File"
-
-    The first argument is the path to the source folder containing the original audio files.
-    The second argument is the path to the destination folder where the copied audio files will be located.
-    The third argument is the path to the log file where the list of processed files will be written.
-'''
-import sys
+import argparse
 import os
 from os import listdir
 from os.path import isfile, join
@@ -66,6 +39,21 @@ def copy_audios_by_date(folder_name, destination_folder, audios_processed):
     
     return audios_processed
 
-results = []
-copy_audios_by_date(sys.argv[1], sys.argv[2], results)
-write_logs(sys.argv[3], results)
+def main():
+    parser = argparse.ArgumentParser(description='Organize audios chronologically in folders by year and month')
+    parser.add_argument('folder_source', help='Original folder containing the audios')
+    parser.add_argument('folder_destination', help='Destination folder to store the organized audios')
+    parser.add_argument('--log_file', '-l', type=str, default='./organize_audios.csv', help='Log file')
+
+    args = parser.parse_args()
+
+    folder_source = args.folder_source
+    folder_destination = args.folder_destination
+    log_file = args.log_file
+
+    results = []
+    copy_audios_by_date(folder_source, folder_destination, results)
+    write_logs(log_file, results)
+
+if __name__ == '__main__':
+    main()
