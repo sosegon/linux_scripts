@@ -1,4 +1,4 @@
-import sys
+import argparse
 import os
 from os import listdir
 from os.path import isfile, join
@@ -68,7 +68,22 @@ def resize_pictures(folder_name,  max_size_str='1MB', images_processed=[]):
                 images_processed.append(r)
         elif not isfile(elem_full_name):
             resize_pictures(elem_full_name, max_size_str, images_processed)
-        
-results = []
-resize_pictures(sys.argv[1], sys.argv[2], results)
-write_logs(sys.argv[3], results)
+
+def main():
+    parser = argparse.ArgumentParser(description='Resize images')
+    parser.add_argument('folder', help='Folder containing the images')
+    parser.add_argument('--size', '-s', type=str, default='1MB', help='New file size for images')
+    parser.add_argument('--log_file', '-l', type=str, default='./resize_files.csv', help='Log file')
+
+    args = parser.parse_args()
+
+    folder_name = args.folder
+    file_size = args.size
+    log_file = args.log_file
+
+    results = []
+    resize_pictures(folder_name, file_size, results)
+    write_logs(log_file, results)
+
+if __name__ == '__main__':
+    main()
