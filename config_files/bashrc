@@ -13,6 +13,7 @@ export NACL_SDK_ROOT=$SHARED/software/nacl_sdk/pepper_49
 export REPO=$SHARED/lwork
 export WORKON_HOME=$SHARED/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/mnt/linux_shared/shared/software/anaconda3/bin/python3
+export ANACONDA=$SHARED/software/anaconda3
 #source /mnt/linux_shared/shared/software/anaconda3/bin/virtualenvwrapper.sh
 
 export PATH=$SHARED/bin
