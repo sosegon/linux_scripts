@@ -1,5 +1,5 @@
 #!/bin/bash
-"exec" "$SHARED/software/anaconda3/envs/organize_media/bin/python3" "$0" "$@"
+"exec" "$ANACONDA/envs/organize_media/bin/python3" "$0" "$@"
 
 import argparse
 import os
@@ -76,7 +76,7 @@ def main():
     parser = argparse.ArgumentParser(description='Resize images')
     parser.add_argument('folder', help='Folder containing the images')
     parser.add_argument('--size', '-s', type=str, default='1MB', help='New file size for images')
-    parser.add_argument('--log_file', '-l', type=str, default='./resize_files.csv', help='Log file')
+    parser.add_argument('--log_file', '-l', type=str, default='./resize_pictures.csv', help='Log file')
 
     args = parser.parse_args()
 
