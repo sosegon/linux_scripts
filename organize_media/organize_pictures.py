@@ -8,7 +8,7 @@ from os.path import isfile, join
 from PIL import Image, ExifTags
 import datetime
 import mimetypes
-from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs
+from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs, summarize_logs, print_summary
 
 def get_exif_data(image):
     exif_data = {}
@@ -84,6 +84,8 @@ def main():
     results = []
     copy_pictures_by_date(folder_source, folder_destination, results)
     write_logs(log_file, results)
+    print_summary(summarize_logs(results, ['SKIPPED', 'COPIED']))
+
 
 if __name__ == '__main__':
     print('organizing pictures started')
@@ -91,4 +93,5 @@ if __name__ == '__main__':
     clock.show()
     main()
     clock.hide()
+    clock.print_time()
     print('organizing pictures completed')

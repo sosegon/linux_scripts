@@ -8,7 +8,7 @@ from os.path import isfile, join
 import datetime
 import mimetypes
 import ffmpeg
-from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs
+from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs, print_summary, summarize_logs
 
 def copy_audios_by_date(folder_name, destination_folder, audios_processed):
     for elem_name in listdir(folder_name):
@@ -60,6 +60,7 @@ def main():
     results = []
     copy_audios_by_date(folder_source, folder_destination, results)
     write_logs(log_file, results)
+    print_summary(summarize_logs(results, ['SKIPPED', 'COPIED']))
 
 if __name__ == '__main__':
     print('organizing audios started')
@@ -67,4 +68,5 @@ if __name__ == '__main__':
     clock.show()
     main()
     clock.hide()
+    clock.print_time()
     print('organizing audios completed')

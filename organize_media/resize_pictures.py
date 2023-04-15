@@ -10,7 +10,7 @@ import mimetypes
 import csv
 import re
 import shutil
-from common import Clock, verify_folder
+from common import Clock, verify_folder, print_summary, summarize_logs
 
 def write_logs(logs_file, logs):
     # write to file
@@ -108,6 +108,7 @@ def main():
     results = []
     resize_pictures(folder_name, folder_name, file_size, results, overwrite)
     write_logs(log_file, results)
+    print_summary(summarize_logs(results, ['RESIZED', 'ERROR', 'COPIED']))
 
 if __name__ == '__main__':
     print('resizing pictures started')
@@ -115,4 +116,5 @@ if __name__ == '__main__':
     clock.show()
     main()
     clock.hide()
+    clock.print_time()
     print('resizing pictures completed')

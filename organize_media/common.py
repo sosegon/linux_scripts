@@ -11,9 +11,12 @@ class Clock:
     def __init__(self):
         self.hidden = True
         self.counter = 0
+        self.start_time = 0
+        self.end_time = 0
 
     def show(self):
         self.hidden = False
+        self.start_time = datetime.datetime.now()
         t = threading.Thread(target=self._gui_thread)
         t.start()
 
@@ -32,6 +35,36 @@ class Clock:
 
     def hide(self):
         self.hidden = True
+        self.end_time = datetime.datetime.now()
+
+    def print_time(self):
+        # calculate the difference between the start and end times
+        delta = self.end_time - self.start_time
+
+        # extract the individual components of the timedelta object
+        hours, remainder = divmod(delta.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+        microseconds = delta.microseconds
+
+        # format the components as a string using f-strings
+        time_str = f"total time: {hours} hours {minutes} mins {seconds}.{microseconds // 1000} secs"
+
+        print(time_str)
+
+def summarize_logs(logs, keys = []):
+    log_summary = {}
+    for key in keys:
+        filtered_logs = filter(lambda x: x['status'] == key, logs)
+        log_summary[key.lower()] = len(list(filtered_logs))
+    return log_summary
+
+def print_summary(summary):
+    # iterate over the keys and values of the dictionary
+    print('================SUMMARY================')
+    for key, value in summary.items():
+        # use an f-string to print the key and value in the desired format
+        print(f"{key} files: {value}")
+    print('=======================================')
 
 def write_logs(logs_file, logs):
     # write to file
