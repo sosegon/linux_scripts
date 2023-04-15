@@ -42,7 +42,7 @@ def copy_pictures_by_date(folder_name, destination_folder, images_processed):
                     image = Image.open(elem_full_name)
                     exif_data = get_exif_data(image)
                     has_exif = True
-                    if 'DateTimeOriginal' in exif_data and exif_data['DateTimeOriginal'] is not '':
+                    if 'DateTimeOriginal' in exif_data and exif_data['DateTimeOriginal'] != '':
                         original_date = date_to_year_month(exif_data['DateTimeOriginal'])
                     else:
                         has_exif = False
