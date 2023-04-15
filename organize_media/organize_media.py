@@ -85,7 +85,13 @@ def copy_media_by_date(folder_name, destination_folder, media_processed):
                     creation_time = next((stream['tags']['creation_time'] for stream in probe['streams'] if 'tags' in stream and 'creation_time' in stream['tags']), None)
                     has_metadata = True
                     if creation_time is not None:
-                        original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m')
+                        try:
+                            original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m')
+                        except ValueError:
+                            try:
+                                original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m')
+                            except ValueError:
+                                raise Exception("Unable to parse creation time")
                     else:
                         original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
                         has_metadata = False
