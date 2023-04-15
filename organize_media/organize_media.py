@@ -9,7 +9,7 @@ from PIL import Image, ExifTags
 import datetime
 import mimetypes
 import ffmpeg
-from common import verify_media_folder, copy_file_to_folder, exception_handler, write_logs
+from common import Clock, verify_media_folder, copy_file_to_folder, exception_handler, write_logs
 
 def get_exif_data(image):
     exif_data = {}
@@ -126,4 +126,9 @@ def main():
     write_logs(log_file, results)
 
 if __name__ == '__main__':
+    print('organizing media started')
+    clock = Clock()
+    clock.show()
     main()
+    clock.hide()
+    print('organizing media completed')

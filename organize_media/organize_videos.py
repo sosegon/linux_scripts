@@ -8,7 +8,7 @@ from os.path import isfile, join
 import datetime
 import mimetypes
 import ffmpeg
-from common import verify_folder, copy_file_to_folder, exception_handler, write_logs
+from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs
 
 def copy_videos_by_date(folder_name, destination_folder, videos_processed):
     for elem_name in listdir(folder_name):
@@ -62,4 +62,9 @@ def main():
     write_logs(log_file, results)
 
 if __name__ == '__main__':
+    print('organizing videos started')
+    clock = Clock()
+    clock.show()
     main()
+    clock.hide()
+    print('organizing videos completed')

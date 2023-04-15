@@ -4,6 +4,34 @@ from os.path import join
 import datetime
 import shutil
 import csv
+import time
+import threading
+
+class Clock:
+    def __init__(self):
+        self.hidden = True
+        self.counter = 0
+
+    def show(self):
+        self.hidden = False
+        t = threading.Thread(target=self._gui_thread)
+        t.start()
+
+    def _gui_thread(self):
+        while not self.hidden:
+            self.counter += 1
+            if self.counter % 4 == 1:
+                print("\ ", end='\r')
+            elif self.counter % 4 == 2:
+                print("|", end='\r')
+            elif self.counter % 4 == 3:
+                print("/", end='\r')
+            else:
+                print("-", end='\r')
+            time.sleep(0.1)
+
+    def hide(self):
+        self.hidden = True
 
 def write_logs(logs_file, logs):
     # write to file
