@@ -5,6 +5,7 @@ from os.path import isfile, join
 import subprocess
 import mimetypes
 import csv
+import re
 
 def write_logs(logs_file, logs):
     # write to file
@@ -15,7 +16,28 @@ def write_logs(logs_file, logs):
         writer.writerows(logs)
     f.close()
 
-def resize_pictures(folder_name,  max_size=1e6, images_processed=[]):
+suffixes = {
+    'B': 1,
+    'KB': 10**3,
+    'MB': 10**6,
+    'GB': 10**9,
+    'TB': 10**12
+}
+
+def convert_to_bytes(size_str):
+    size_str = size_str.upper()
+    match = re.search(r'^(\d+)([A-Z]+)$', size_str)
+    if not match:
+        raise ValueError('Invalid size string')
+    size_num = int(match.group(1))
+    size_suffix = match.group(2)
+    if size_suffix not in suffixes:
+        raise ValueError('Invalid suffix')
+    bytes = size_num * suffixes[size_suffix]
+    return bytes
+
+def resize_pictures(folder_name,  max_size_str='1MB', images_processed=[]):
+    max_size = convert_to_bytes(max_size_str)
     for elem_name in listdir(folder_name):
         elem_full_name = join(folder_name, elem_name)
         file_size = os.path.getsize(elem_full_name)
@@ -45,8 +67,8 @@ def resize_pictures(folder_name,  max_size=1e6, images_processed=[]):
                 }
                 images_processed.append(r)
         elif not isfile(elem_full_name):
-            resize_pictures(elem_full_name, max_size, images_processed)
+            resize_pictures(elem_full_name, max_size_str, images_processed)
         
 results = []
-resize_pictures(sys.argv[1], int(sys.argv[2]), results)
+resize_pictures(sys.argv[1], sys.argv[2], results)
 write_logs(sys.argv[3], results)
