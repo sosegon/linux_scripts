@@ -1,3 +1,6 @@
+#!/bin/bash
+"exec" "$SHARED/software/anaconda3/envs/organize_media/bin/python3" "$0" "$@"
+
 import argparse
 import os
 from os import listdir
