@@ -40,10 +40,14 @@ def reencode_videos(root_folder, folder_name, videos_processed=[], overwrite=Fal
                         'libx265',
                         '-crf',
                         '28',
+                        '-movflags',
+                        'use_metadata_tags',
                         '-map_metadata',
                         '0',
                         '-metadata',
                         f"creation_time={metadata_creation_time}",
+                        '-metadata',
+                        'reencodedBySosegon=true',
                         new_elem_full_name
                     ]
                     subprocess.call(command)
