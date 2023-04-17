@@ -9,7 +9,6 @@ import subprocess
 import mimetypes
 import csv
 import re
-import shutil
 from common import Clock, verify_folder, print_summary, summarize_logs
 
 def write_logs(logs_file, logs):
@@ -53,7 +52,16 @@ def resize_pictures(root_folder, folder_name,  max_size_str='1MB', images_proces
                     typefile = mimetypes.guess_type(elem_full_name)[0]
                     if typefile is not None and typefile.find('image') != -1:
                         verify_folder(os.path.dirname(new_elem_full_name), '')
-                        command = ['convert', elem_full_name, '-define', 'jpeg:extent=1MB', new_elem_full_name]
+                        command = [
+                            'convert',
+                            elem_full_name,
+                            '-define',
+                            'jpeg:extent=1MB',
+                            '-set',
+                            'comment',
+                            'sizeCheckedBySosegon:true',
+                            new_elem_full_name
+                        ]
                         subprocess.call(command)
                         new_file_size = os.path.getsize(new_elem_full_name)
                         r = {
@@ -78,7 +86,15 @@ def resize_pictures(root_folder, folder_name,  max_size_str='1MB', images_proces
                     images_processed.append(r)
             else:
                 verify_folder(os.path.dirname(new_elem_full_name), '')
-                shutil.copy2(elem_full_name, new_elem_full_name)
+                command = [
+                    'convert',
+                    elem_full_name,
+                    '-set',
+                    'comment',
+                    'sizeCheckedBySosegon:true',
+                    new_elem_full_name
+                ]
+                subprocess.call(command)
                 r = {
                     'status': 'COPIED',
                     'original_file': elem_full_name,
