@@ -63,6 +63,13 @@ def resize_pictures(root_folder, folder_name,  max_size_str='1MB', images_proces
                             new_elem_full_name
                         ]
                         subprocess.call(command)
+                        command2 = [
+                            'exiftool',
+                            '-quiet',
+                            '-FileModifyDate<CreateDate',
+                            new_elem_full_name
+                        ]
+                        subprocess.call(command2)
                         new_file_size = os.path.getsize(new_elem_full_name)
                         r = {
                             'status': 'RESIZED',
@@ -95,6 +102,13 @@ def resize_pictures(root_folder, folder_name,  max_size_str='1MB', images_proces
                     new_elem_full_name
                 ]
                 subprocess.call(command)
+                command2 = [
+                    'exiftool',
+                    '-quiet',
+                    '-FileModifyDate<CreateDate',
+                    new_elem_full_name
+                ]
+                subprocess.call(command2)
                 r = {
                     'status': 'COPIED',
                     'original_file': elem_full_name,
