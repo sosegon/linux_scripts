@@ -66,10 +66,9 @@ def print_summary(summary):
         print(f"{key} files: {value}")
     print('=======================================')
 
-def write_logs(logs_file, logs):
+def write_logs(logs_file, logs, header=['status', 'type', 'date', 'original', 'new', 'error', 'exif']):
     # write to file
     with open(logs_file, 'w') as f:
-        header = ['status', 'type', 'date', 'original', 'new', 'error', 'exif']
         writer = csv.DictWriter(f, fieldnames=header)
         writer.writeheader()
         writer.writerows(logs)
