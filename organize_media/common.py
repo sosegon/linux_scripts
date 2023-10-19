@@ -6,6 +6,8 @@ import shutil
 import csv
 import time
 import threading
+import datetime
+import subprocess
 
 class Clock:
     def __init__(self):
@@ -135,3 +137,32 @@ def copy_file_to_folder(original_file_path, new_file_name, folder_to_copy, origi
             'exif': exif,
             'error': 'file already exists in the folder with a different date' if full_date_1 != full_date_2 else 'file already exists in the folder'
         }
+
+def get_exif_date(file_name):
+    dates = {}
+
+    command = [
+        'exiftool',
+        '-AllDates',
+        file_name
+    ]
+
+    out = subprocess.check_output(command)
+
+    try:
+        create_date = out.decode('UTF-8').split('Create Date')[1].strip().split(': ')[1].strip()[:19]
+        dates['create_date'] = create_date
+    except Exception as e:
+        # Something
+        print("No Create Date in file: " + file_name)
+    try:
+        original_date = out.decode('UTF-8').split('Date/Time Original')[1].strip().split(': ')[1].strip()[:19]
+        dates['original_date'] = original_date
+    except Exception as e:
+        # Something
+        print("No Date/Time Original in file: " + file_name)
+
+    return dates
+
+def date_to_year_month(date):
+    return date[:4] + '-' + date[5:7]

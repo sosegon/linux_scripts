@@ -5,32 +5,10 @@ import argparse
 import os
 from os import listdir
 from os.path import isfile, join
-from PIL import Image, ExifTags
 import datetime
 import mimetypes
 import ffmpeg
-from common import Clock, verify_media_folder, copy_file_to_folder, exception_handler, write_logs, print_summary, summarize_logs
-
-def get_exif_data(image):
-    exif_data = {}
-    info = image._getexif()
-    if info:
-        for tag, value in info.items():
-            decoded = ExifTags.TAGS.get(tag, tag)
-            if decoded == "GPSInfo":
-                gps_data = {}
-                for t in value:
-                    sub_decoded = ExifTags.GPSTAGS.get(t, t)
-                    gps_data[sub_decoded] = value[t]
-
-                exif_data[decoded] = gps_data
-            else:
-                exif_data[decoded] = value
-
-    return exif_data
-
-def date_to_year_month(date):
-    return date[:4] + '-' + date[5:7]
+from common import Clock, date_to_year_month, get_exif_date, verify_media_folder, copy_file_to_folder, exception_handler, write_logs, print_summary, summarize_logs
 
 def copy_media_by_date(folder_name, destination_folder, media_processed):
     for elem_name in listdir(folder_name):
@@ -40,30 +18,37 @@ def copy_media_by_date(folder_name, destination_folder, media_processed):
             try:
                 typefile = mimetypes.guess_type(elem_full_name)[0]
                 if typefile is not None and typefile.find('video') != -1:
-                    probe = ffmpeg.probe(elem_full_name)
-                    creation_time = next((stream['tags']['creation_time'] for stream in probe['streams'] if 'tags' in stream and 'creation_time' in stream['tags']), None)
-                    has_metadata = True
-                    if creation_time is not None:
-                        try:
-                            original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m')
-                        except ValueError:
-                            try:
-                                original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m')
-                            except ValueError:
-                                raise Exception("Unable to parse creation time")
+                    exif_date = get_exif_date(elem_full_name)
+                    has_exif = True
+                    if 'original_date' in exif_date and exif_date['original_date'] != '':
+                        original_date = date_to_year_month(exif_date['original_date'])
+                    elif 'create_date' in exif_date and exif_date['create_date'] != '':
+                        original_date = date_to_year_month(exif_date['create_date'])
+                        has_exif = False
                     else:
-                        original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
-                        has_metadata = False
+                        # original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
+                        has_exif = False
+                        m_time = os.path.getmtime(elem_full_name)
+                        dt = datetime.datetime.fromtimestamp(m_time).timetuple()
+                        #convert month to 2 digits
+                        month = str(dt.tm_mon)
+                        if len(month) == 1:
+                            month = '0' + month
+                        original_date = "%s-%s" % (dt.tm_year, month)
+                    # verify the folder
                     folder_to_copy = verify_media_folder('videos', destination_folder, original_date)
-                    result = copy_file_to_folder(elem_full_name, elem_name, folder_to_copy, original_date, 'video', has_metadata)
+                    # copy the image
+                    result = copy_file_to_folder(elem_full_name, elem_name, folder_to_copy, original_date, 'video', has_exif)
                     media_processed.append(result)
                     continue
                 elif typefile is None or typefile.find('image') != -1:
-                    image = Image.open(elem_full_name)
-                    exif_data = get_exif_data(image)
+                    exif_date = get_exif_date(elem_full_name)
                     has_exif = True
-                    if 'DateTimeOriginal' in exif_data and exif_data['DateTimeOriginal'] != '':
-                        original_date = date_to_year_month(exif_data['DateTimeOriginal'])
+                    if 'original_date' in exif_date and exif_date['original_date'] != '':
+                        original_date = date_to_year_month(exif_date['original_date'])
+                    elif 'create_date' in exif_date and exif_date['create_date'] != '':
+                        original_date = date_to_year_month(exif_date['create_date'])
+                        has_exif = False
                     else:
                         has_exif = False
                         m_time = os.path.getmtime(elem_full_name)

@@ -7,8 +7,7 @@ from os import listdir
 from os.path import isfile, join
 import datetime
 import mimetypes
-import ffmpeg
-from common import Clock, verify_folder, copy_file_to_folder, exception_handler, write_logs, summarize_logs, print_summary
+from common import Clock, date_to_year_month, get_exif_date, verify_folder, copy_file_to_folder, exception_handler, write_logs, summarize_logs, print_summary
 
 def copy_videos_by_date(folder_name, destination_folder, videos_processed):
     for elem_name in listdir(folder_name):
@@ -18,22 +17,25 @@ def copy_videos_by_date(folder_name, destination_folder, videos_processed):
             try:
                 typefile = mimetypes.guess_type(elem_full_name)[0]
                 if typefile is not None and typefile.find('video') != -1:
-                    probe = ffmpeg.probe(elem_full_name)
-                    creation_time = next((stream['tags']['creation_time'] for stream in probe['streams'] if 'tags' in stream and 'creation_time' in stream['tags']), None)
-                    has_metadata = True
-                    if creation_time is not None:
-                        try:
-                            original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m')
-                        except ValueError:
-                            try:
-                                original_date = datetime.datetime.strptime(creation_time, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m')
-                            except ValueError:
-                                raise Exception("Unable to parse creation time")
+                    exif_date = get_exif_date(elem_full_name)
+                    has_exif = True
+                    if 'original_date' in exif_date and exif_date['original_date'] != '':
+                        original_date = date_to_year_month(exif_date['original_date'])
+                    elif 'create_date' in exif_date and exif_date['create_date'] != '':
+                        original_date = date_to_year_month(exif_date['create_date'])
+                        has_exif = False
                     else:
-                        original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
-                        has_metadata = False
+                        # original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
+                        has_exif = False
+                        m_time = os.path.getmtime(elem_full_name)
+                        dt = datetime.datetime.fromtimestamp(m_time).timetuple()
+                        #convert month to 2 digits
+                        month = str(dt.tm_mon)
+                        if len(month) == 1:
+                            month = '0' + month
+                        original_date = "%s-%s" % (dt.tm_year, month)
                     folder_to_copy = verify_folder(destination_folder, original_date)
-                    result = copy_file_to_folder(elem_full_name, elem_name, folder_to_copy, original_date, 'video', has_metadata)
+                    result = copy_file_to_folder(elem_full_name, elem_name, folder_to_copy, original_date, 'video', has_exif)
                     videos_processed.append(result)
                     continue
             except Exception as e:
