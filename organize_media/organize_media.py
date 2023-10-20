@@ -25,6 +25,9 @@ def copy_media_by_date(folder_name, destination_folder, media_processed):
                     elif 'create_date' in exif_date and exif_date['create_date'] != '':
                         original_date = date_to_year_month(exif_date['create_date'])
                         has_exif = False
+                    elif 'modify_date' in exif_date and exif_date['modify_date'] != '':
+                        original_date = date_to_year_month(exif_date['modify_date'])
+                        has_exif = False
                     else:
                         # original_date = datetime.datetime.fromtimestamp(os.path.getmtime(elem_full_name)).strftime('%Y-%m')
                         has_exif = False

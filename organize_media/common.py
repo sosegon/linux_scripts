@@ -162,6 +162,21 @@ def get_exif_date(file_name):
         # Something
         print("No Date/Time Original in file: " + file_name)
 
+    command = [
+        'exiftool',
+        '-FileModifyDate',
+        file_name
+    ]
+
+    out = subprocess.check_output(command)
+
+    try:
+        create_date = out.decode('UTF-8').split('File Modification Date/Time')[1].strip().split(': ')[1].strip()[:19]
+        dates['modify_date'] = create_date
+    except Exception as e:
+        # Something
+        print("No File Modification Date/Time in file: " + file_name)
+
     return dates
 
 def date_to_year_month(date):

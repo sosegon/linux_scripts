@@ -7,7 +7,7 @@ from os.path import isfile, join
 import subprocess
 import mimetypes
 import csv
-from common import Clock, verify_folder, print_summary, summarize_logs
+from common import Clock, get_exif_date, verify_folder, print_summary, summarize_logs
 
 def write_logs(logs_file, logs):
     # write to file
@@ -28,10 +28,20 @@ def reencode_videos(root_folder, folder_name, videos_processed=[], overwrite=Fal
                 typefile = mimetypes.guess_type(elem_full_name)[0]
                 if typefile is not None and typefile.find('video') != -1:
                     verify_folder(os.path.dirname(new_elem_full_name), '')
+                    # Get metadata to insert into reencoded video
                     metadata_creation_time = subprocess.check_output([
                         "date", "-u", "+%Y-%m-%dT%H:%M:%SZ", "-d", 
                         "@" + str(int(os.stat(elem_full_name).st_mtime))
                     ]).decode().strip()
+                    exif_date = get_exif_date(elem_full_name)
+                    if 'original_date' in exif_date and exif_date['original_date'] != '':
+                        metadata_creation_time = exif_date['original_date']
+                    elif 'create_date' in exif_date and exif_date['create_date'] != '':
+                        metadata_creation_time = exif_date['create_date']
+                    elif 'modify_date' in exif_date and exif_date['modify_date'] != '':
+                        metadata_creation_time = exif_date['modify_date']
+                    print(metadata_creation_time)
+                    # Reencode
                     command = [
                         'ffmpeg',
                         '-i',
@@ -47,10 +57,36 @@ def reencode_videos(root_folder, folder_name, videos_processed=[], overwrite=Fal
                         '-metadata',
                         f"creation_time={metadata_creation_time}",
                         '-metadata',
+                        f"modification_time={metadata_creation_time}",
+                        '-metadata',
                         'reencodedBySosegon=true',
                         new_elem_full_name
                     ]
                     subprocess.call(command)
+                    # Update dates
+                    command = [
+                        'exiftool',
+                        f"-CreateDate={metadata_creation_time}",
+                        new_elem_full_name
+                    ]
+                    subprocess.call(command)
+                    command = [
+                        'exiftool',
+                        f"-AllDates={metadata_creation_time}",
+                        new_elem_full_name
+                    ]
+                    subprocess.call(command)
+                    command = [
+                        'exiftool',
+                        f"-FileModifyDate={metadata_creation_time}",
+                        new_elem_full_name
+                    ]
+                    subprocess.call(command)
+                    # Remove original file
+                    backup_new_elem_full_name = new_elem_full_name + '_original'
+                    if os.path.exists(backup_new_elem_full_name):
+                        os.remove(backup_new_elem_full_name)
+                    # Log
                     r = {
                         'status': 'REENCODED',
                         'original_file': elem_full_name,
