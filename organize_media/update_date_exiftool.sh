@@ -18,3 +18,17 @@
 #exiftool "-FileModifyDate<CreateDate" /mnt/d/Imagenes_tamano_original_P/updating/*.jpg
 #exiftool "-FileModifyDate<CreateDate" /mnt/d/Imagenes_tamano_original_P/updating/*.jpeg
 #exiftool "-FileModifyDate<CreateDate" /mnt/d/Imagenes_tamano_original_P/updating/*.JPG
+
+# When using the following command
+#exiftool "-CreateDate=2008:11:07 11:00:00" /mnt/d/Imagenes_tamano_original_P/updating/baby3.jpg
+# Use the next ones too
+#exiftool "-AllDates<CreateDate" /mnt/d/Imagenes_tamano_original_P/updating/baby3.jpg
+#exiftool "-FileModifyDate<CreateDate" /mnt/d/Imagenes_tamano_original_P/updating/baby3.jpg
+
+exiftool "-CreateDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-AllDates=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-FileModifyDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-MediaCreateDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-MediaModifyDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-TrackCreateDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
+exiftool "-TrackModifyDate=2024:03:16 22:20:01.102" "/mnt/d/por_organizar_de_cel_done/fotos/2024-03/IMG_20240316_222001_102.jpg"
